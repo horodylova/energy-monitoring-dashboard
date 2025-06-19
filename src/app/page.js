@@ -33,6 +33,7 @@ import Features from './components/Features';
 import RateLimits from './components/RateLimits';
 import Members from './components/Members';
 import AccountInfo from './components/AccountInfo';
+import GetAccountInfo from './services/get-account-info';
 
 import logo from '@/app/assets/logo.svg?url';
 import compactLogo from '@/app/assets/compact-logo.svg?url';
@@ -57,6 +58,13 @@ export default function Home() {
   const [expanded, setExpanded] = React.useState(true);
   const [items, setItems] = React.useState(drawerItems);
   const [refreshChart, setRefreshChart] = React.useState(true);
+  
+  // Состояние для DailyStats
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [electricityData, setElectricityData] = React.useState(null);
+  const [gasData, setGasData] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
 
   const handleDrawerState = () => {
     setExpanded(prevState => !prevState);
@@ -211,9 +219,20 @@ export default function Home() {
             </h1>
 
             <div className="k-display-flex k-flex-col k-gap-10">
-              {/* Daily Stats */}
-              <DailyStats />
-
+              {/* Daily Stats - передаем состояние через props */}
+              <DailyStats 
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                electricityData={electricityData}
+                setElectricityData={setElectricityData}
+                gasData={gasData}
+                setGasData={setGasData}
+                loading={loading}
+                setLoading={setLoading}
+                error={error}
+                setError={setError}
+              />
+              
               {/* Usage */}
               <Usage onRefresh={handleChartRefresh} />
 
@@ -280,6 +299,9 @@ export default function Home() {
 
               {/* Api Keys Management */}
               <AccountInfo />
+              
+              {/* Get Account Info for debugging */}
+              <GetAccountInfo />
             </div>
           </main>
           {/* FTR-7 Start */}
