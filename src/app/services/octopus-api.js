@@ -43,8 +43,7 @@ function getTariffForDate(date) {
 
 async function getAccountProperties() {
   try {
-    console.log('Making request to Octopus Energy API...');
-    console.log('Account Number:', ACCOUNT_NUMBER);
+  
     
     const response = await axios.get(
       `${OCTOPUS_API_BASE_URL}/v1/accounts/${ACCOUNT_NUMBER}/`,
@@ -56,11 +55,9 @@ async function getAccountProperties() {
       }
     );
     
-    console.log('Data received successfully:');
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
-    console.error('Error fetching account data:', error.response ? error.response.data : error.message);
     throw new Error(`Account data error: ${error.response?.data?.detail || error.message}`);
   }
 }
@@ -108,9 +105,7 @@ async function getDailyElectricityData(date) {
         const isYesterday = date.getDate() === today.getDate() - 1 && 
                           date.getMonth() === today.getMonth() && 
                           date.getFullYear() === today.getFullYear();
-        
-        console.log(`Getting data for date: ${date.toISOString()}`);
-        console.log(`Is today: ${isToday}, Is yesterday: ${isYesterday}`);
+  
         
         let periodFrom = new Date(date);
         periodFrom.setHours(0, 0, 0, 0);
@@ -126,7 +121,6 @@ async function getDailyElectricityData(date) {
             periodTo = new Date(today);
             periodTo.setHours(23, 59, 59, 999);
             
-            console.log(`Using extended date range for recent data: ${periodFrom.toISOString()} to ${periodTo.toISOString()}`);
         }
 
         const electricityResponse = await getElectricityConsumption(
@@ -138,20 +132,16 @@ async function getDailyElectricityData(date) {
         );
         
         const selectedDateStr = date.toISOString().split('T')[0];
-        console.log(`Filtering for date: ${selectedDateStr}`);
         
         const hourlyConsumption = electricityResponse.results.filter(item => 
             item.interval_start.startsWith(selectedDateStr)
         );
-        
-        console.log(`Found ${hourlyConsumption.length} hourly consumption records for ${selectedDateStr}`);
-        
+                
         let totalConsumption = 0;
         let dataStatus = 'complete';
         
         if (hourlyConsumption.length > 0) {
             totalConsumption = hourlyConsumption.reduce((sum, item) => sum + item.consumption, 0);
-            console.log(`Total consumption for ${selectedDateStr}: ${totalConsumption}`);
             
             if (isToday) {
                 dataStatus = 'partial';
@@ -159,7 +149,6 @@ async function getDailyElectricityData(date) {
                 dataStatus = 'partial';
             }
         } else {
-            console.log(`No consumption data found for ${selectedDateStr}`);
             if (isToday || isYesterday) {
                 dataStatus = 'pending';
             } else {
@@ -177,9 +166,71 @@ async function getDailyElectricityData(date) {
             recordCount: hourlyConsumption.length
         };
     } catch (error) {
-        console.error('Error in getDailyElectricityData:', error);
         throw error;
     }
 }
 
-export { getAccountCreationDate, getTariffForDate, getAccountProperties, getElectricityConsumption, getDailyElectricityData };
+async function getMonthlyElectricityData(startYear, endYear, currentMonth) {
+    try {
+        
+        const result = [];
+        
+        for (let year = startYear; year <= endYear; year++) {
+            const yearData = {
+                year: year,
+                data: []
+            };
+            
+            const monthLimit = (year === new Date().getFullYear()) ? new Date().getMonth() : 11;
+            
+            const startMonth = 0;
+            
+            for (let month = startMonth; month <= monthLimit; month++) {
+                const startDate = new Date(year, month, 1);
+                const endDate = new Date(year, month + 1, 0);
+                
+                const periodFrom = new Date(startDate);
+                periodFrom.setHours(0, 0, 0, 0);
+                
+                const periodTo = new Date(endDate);
+                periodTo.setHours(23, 59, 59, 999);
+                
+                try {
+                    const electricityResponse = await getElectricityConsumption(
+                        ELECTRICITY_MPAN,
+                        ELECTRICITY_SERIAL,
+                        periodFrom.toISOString(),
+                        periodTo.toISOString(),
+                        'day'
+                    );
+                    
+                    let monthlyConsumption = 0;
+                    
+                    if (electricityResponse.results && electricityResponse.results.length > 0) {
+                        monthlyConsumption = electricityResponse.results.reduce((sum, item) => sum + item.consumption, 0);
+                    }
+                    
+                    yearData.data.push({
+                        month: month,
+                        consumption: monthlyConsumption
+                    });
+                } catch (error) {
+                    console.error(`Error fetching data for ${year}-${month+1}:`, error);
+                    
+                    yearData.data.push({
+                        month: month,
+                        consumption: 0
+                    });
+                }
+            }
+            
+            result.push(yearData);
+        }
+        
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export { getAccountCreationDate, getTariffForDate, getAccountProperties, getElectricityConsumption, getDailyElectricityData, getMonthlyElectricityData };
