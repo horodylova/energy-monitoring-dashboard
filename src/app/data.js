@@ -1,20 +1,20 @@
 import { checkIcon, commentIcon, gearsIcon, logoutIcon } from '@progress/kendo-svg-icons';
-import DrawerItem1 from './assets/drawer-item-1.png?url';
-import DrawerItem2 from './assets/drawer-item-2.png?url';
-import DrawerItem3 from './assets/drawer-item-3.png?url';
-import DrawerItem4 from './assets/drawer-item-4.png?url';
-import DrawerItem5 from './assets/drawer-item-5.png?url';
-import DrawerItem6 from './assets/drawer-item-6.png?url';
-import DrawerItem7 from './assets/drawer-item-7.png?url';
-import DrawerItem8 from './assets/drawer-item-8.png?url';
-import DrawerItem9 from './assets/drawer-item-9.png?url';
-import DrawerItem21 from './assets/drawer-item-2-1.png?url';
-import DrawerItem22 from './assets/drawer-item-2-2.png?url';
-import DrawerItem23 from './assets/drawer-item-2-3.png?url';
-import DrawerItem24 from './assets/drawer-item-2-4.png?url';
-import DrawerItem31 from './assets/drawer-item-3-1.png?url';
-import DrawerItem32 from './assets/drawer-item-3-2.png?url';
-import DrawerItem33 from './assets/drawer-item-3-3.png?url';
+import DrawerItem1 from '@/app/assets/drawer-item-1.png';
+import DrawerItem2 from '@/app/assets/drawer-item-2.png';
+import DrawerItem3 from '@/app/assets/drawer-item-3.png';
+import DrawerItem4 from '@/app/assets/drawer-item-4.png';
+import DrawerItem5 from '@/app/assets/drawer-item-5.png';
+import DrawerItem6 from '@/app/assets/drawer-item-6.png';
+import DrawerItem7 from '@/app/assets/drawer-item-7.png';
+import DrawerItem8 from '@/app/assets/drawer-item-8.png';
+import DrawerItem9 from '@/app/assets/drawer-item-9.png';
+import DrawerItem21 from '@/app/assets/drawer-item-2-1.png';
+import DrawerItem22 from '@/app/assets/drawer-item-2-2.png';
+import DrawerItem23 from '@/app/assets/drawer-item-2-3.png';
+import DrawerItem24 from '@/app/assets/drawer-item-2-4.png';
+import DrawerItem31 from '@/app/assets/drawer-item-3-1.png';
+import DrawerItem32 from '@/app/assets/drawer-item-3-2.png';
+import DrawerItem33 from '@/app/assets/drawer-item-3-3.png';
 
 export const adminItems = [
     { text: 'Settings', icon: gearsIcon },

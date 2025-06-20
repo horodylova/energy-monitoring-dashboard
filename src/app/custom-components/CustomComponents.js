@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import {
   ToggleButton,
 } from '@progress/kendo-react-dateinputs';
@@ -18,7 +19,16 @@ export const CustomDrawerItem = (props) => {
   if (!props.separator) {
     return visible === false ? null : (
       <DrawerItem id={props.id} className={`${className} k-font-size-md k-align-items-center`} {...others} >
-        <img src={props.image} alt="Emoji" className="k-w-4 k-h-4" />
+        {props.image && (
+          <div style={{ width: '16px', height: '16px', position: 'relative', marginRight: '8px' }}>
+            <Image 
+              src={props.image} 
+              alt={`Icon for ${props.text}`}
+              fill
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
+        )}
         <span className="k-item-text">{props.text}</span>
         {dataExpanded !== undefined && (
           <SvgIcon

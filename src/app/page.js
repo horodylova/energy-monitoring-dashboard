@@ -33,10 +33,9 @@ import Features from './components/Features';
 import RateLimits from './components/RateLimits';
 import Members from './components/Members';
 import AccountInfo from './components/AccountInfo';
-import GetAccountInfo from './services/get-account-info';
-
-import logo from '@/app/assets/logo.svg?url';
-import compactLogo from '@/app/assets/compact-logo.svg?url';
+ 
+import logo from '@/app/assets/logo.svg';
+import compactLogo from '@/app/assets/compact-logo.svg';
 
 import {
   bellIcon,
@@ -301,7 +300,7 @@ export default function Home() {
               <AccountInfo />
               
               {/* Get Account Info for debugging */}
-              <GetAccountInfo />
+              
             </div>
           </main>
           {/* FTR-7 Start */}
