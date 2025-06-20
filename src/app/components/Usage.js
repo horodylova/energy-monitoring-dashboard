@@ -19,7 +19,7 @@ export default function Usage({ onRefresh }) {
   
   return (
     <div>
-      <h2 className="k-h5 !k-mb-5 k-color-subtle">Usage</h2>
+      <h2 className="k-h5 !k-mb-5 k-color-subtle">Utilisation</h2>
       <div
         className="k-d-flex k-flex-col k-border k-border-solid k-border-border k-bg-surface-alt k-rounded-lg"
         style={{ background: 'var(--card-gradient)' }}
