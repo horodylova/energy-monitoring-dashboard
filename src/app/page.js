@@ -26,7 +26,7 @@ import { chipData, drawerItems, adminItems } from './data';
 
 import RequestsChart from './internal-building-blocks/requests-chart';
 import DailyStats from './components/DailyStats';
-import Usage from './components/Usage';
+import Usage from './components/Utilisation';
 import TariffsAndExpenses from './components/TariffsAndExpenses';
 import Detection from './components/Detection';
 import Features from './components/Features';

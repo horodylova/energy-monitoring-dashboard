@@ -9,6 +9,7 @@ import {
   ChartSeriesItem,
   ChartValueAxis,
   ChartValueAxisItem,
+  ChartTooltip,
 } from '@progress/kendo-react-charts';
 import { getMonthlyElectricityData, getTariffForDate } from '../services/octopus-api';
 
@@ -88,6 +89,30 @@ export default function YearlyUsageChart(props) {
     }));
   };
   
+  const tooltipRender = ({ point }) => {
+    if (!point || !point.series) {
+      return null;
+    }
+    
+    const year = point.series.name;
+    const monthIndex = point.categoryIndex;
+    const monthName = categories[monthIndex];
+    
+    const yearData = yearlyData.find(data => data.year.toString() === year);
+    if (!yearData) return null;
+    
+    const monthData = yearData.data[monthIndex];
+    
+    return (
+      <div style={{ padding: '10px' }}>
+        <div><strong>{monthName} {year}</strong></div>
+        <div>Cost: £{monthData.cost.toFixed(2)}</div>
+        <div>Consumption: {monthData.consumption.toFixed(2)} kWh</div>
+        <div>Tariff: £{monthData.tariff.toFixed(4)}/kWh</div>
+      </div>
+    );
+  };
+  
   if (loading) {
     return <div>Loading data...</div>;
   }
@@ -136,6 +161,7 @@ export default function YearlyUsageChart(props) {
           />
         ))}
       </ChartSeries>
+      <ChartTooltip render={tooltipRender} />
       <ChartLegend position="bottom" onClick={handleLegendItemClick} />
     </Chart>
   );
