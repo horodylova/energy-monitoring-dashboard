@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -9,12 +9,34 @@ import { exportIcon } from '@progress/kendo-svg-icons';
 import YearlyUsageChart from '../internal-building-blocks/yearly-usage-chart';
 import { chipData } from '../data';
 import { CustomChip } from '../custom-components/CustomComponents';
+import { exportToPDF } from '../utils/pdfExport';
 
 export default function Usage({ onRefresh }) {
   const [selectedYear, setSelectedYear] = useState('all');
+  const [selectedChips, setSelectedChips] = useState(['1', '5']);
+  const chartContainerRef = useRef(null);
   
   const handleYearChange = (year) => {
     setSelectedYear(year);
+  };
+  
+  const handleChipSelect = (e) => {
+    const chipValue = e.target.props.value;
+    if (selectedChips.includes(chipValue)) {
+      setSelectedChips(selectedChips.filter(value => value !== chipValue));
+    } else {
+      setSelectedChips([...selectedChips, chipValue]);
+    }
+  };
+  
+  const handleExport = () => {
+    const title = `Energy Consumption Cost - ${selectedYear === 'all' ? 'All Years' : selectedYear}`;
+    
+    exportToPDF(chartContainerRef, `energy-consumption-${selectedYear}.pdf`, {
+      title: title,
+      background: '#333',
+      color: '#fff'
+    }); 
   };
   
   return (
@@ -59,13 +81,26 @@ export default function Usage({ onRefresh }) {
             </Button>
           </ButtonGroup>
         </div>
-        <div className="k-flex-1 k-p-4 k-d-flex k-flex-col k-gap-4">
+        <div className="k-p-4">
+          <ChipList
+            data={chipData}
+            selected={selectedChips}
+            onItemClick={handleChipSelect}
+            chip={CustomChip}
+            size="medium"
+            className="k-flex-wrap k-gap-2"
+          />
+        </div>
+        <div className="k-flex-1 k-p-4 k-d-flex k-flex-col k-gap-4" ref={chartContainerRef}>
           <div className="k-flex-1">
             <YearlyUsageChart selectedYear={selectedYear} onRefresh={onRefresh} />
           </div>
         </div>
-        <div className="k-p-2">
-          <Button svgIcon={exportIcon} fillMode="flat" title="export">
+        <div className="k-p-2 k-d-flex k-justify-content-between">
+          <div className="k-d-flex k-gap-2">
+           
+          </div>
+          <Button svgIcon={exportIcon} fillMode="flat" title="export" onClick={handleExport}>
             Export
           </Button>
         </div>
@@ -73,3 +108,5 @@ export default function Usage({ onRefresh }) {
     </div>
   );
 }
+
+

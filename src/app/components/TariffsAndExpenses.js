@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Button,
   ButtonGroup,
@@ -10,9 +10,11 @@ import HourlyConsumptionHeatmap from '../internal-building-blocks/hourly-consump
 import ConsumptionCostChart from '../internal-building-blocks/consumption-cost-chart';
 import { chipData } from '../data';
 import { CustomChip } from '../custom-components/CustomComponents';
+import { exportToPDF } from '../utils/pdfExport';
 
 export default function TariffsAndExpenses({ onRefresh }) {
   const [selectedView, setSelectedView] = useState('comparison');
+  const chartContainerRef = useRef(null);
 
   const renderChart = () => {
     switch(selectedView) {
@@ -25,6 +27,16 @@ export default function TariffsAndExpenses({ onRefresh }) {
       default:
         return <TariffComparisonChart onRefresh={onRefresh} />;
     }
+  };
+  
+  const handleExport = () => {
+    const title = `Energy Consumption Analysis - ${selectedView === 'comparison' ? 'Tariff Comparison' : selectedView === 'hourly' ? 'Hourly Consumption' : 'Cost Analysis'}`;
+    
+    exportToPDF(chartContainerRef, `energy-analysis-${selectedView}.pdf`, {
+      title: title,
+      background: '#333',
+      color: '#fff'
+    });
   };
 
   return (
@@ -65,13 +77,12 @@ export default function TariffsAndExpenses({ onRefresh }) {
           </div>
           <div className="k-flex-1 k-p-4 k-d-flex k-flex-col k-gap-4">
             <ChipList
-              className="k-gap-2"
               data={chipData}
               chip={CustomChip}
               selection="multiple"
               ariaLabel="chiplist"
             />
-            <div className="k-flex-1">
+            <div className="k-flex-1" ref={chartContainerRef}>
               {renderChart()}
             </div>
           </div>
@@ -80,6 +91,7 @@ export default function TariffsAndExpenses({ onRefresh }) {
               svgIcon={exportIcon}
               fillMode="flat"
               title="export"
+              onClick={handleExport}
             >
               Export
             </Button>

@@ -28,7 +28,7 @@ export default function YearlyUsageChart(props) {
         const currentYear = currentDate.getFullYear();
         const currentMonth = currentDate.getMonth();
         
-        const data = await getMonthlyElectricityData(2023, 2025, currentMonth);
+        const data = await getMonthlyElectricityData(2023, currentYear, currentMonth);
         
         const dataWithCost = data.map(yearData => {
           return {
@@ -73,13 +73,15 @@ export default function YearlyUsageChart(props) {
         ];
         setCategories(monthNames);
       } catch (error) {
+        console.error('Ошибка при загрузке данных:', error);
+      
       } finally {
         setLoading(false);
       }
     };
     
     fetchData();
-  }, []);
+  }, []); 
   
   const handleLegendItemClick = (e) => {
     const seriesName = parseInt(e.series.name);
@@ -133,7 +135,7 @@ export default function YearlyUsageChart(props) {
   }));
   
   return (
-    <Chart style={{ height: 429 }} onRefresh={onRefresh}>
+    <Chart style={{ height: '570px' }} onRefresh={onRefresh}>
       <ChartArea background="transparent" />
       <ChartCategoryAxis>
         <ChartCategoryAxisItem
