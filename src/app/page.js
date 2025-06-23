@@ -123,7 +123,7 @@ export default function Home() {
     
           
             <p className="!k-mb-0">
-             Hi Svitlana</p>
+             Hi, Svitlana!</p>
            
           </AppBarSection>
         </AppBar>
