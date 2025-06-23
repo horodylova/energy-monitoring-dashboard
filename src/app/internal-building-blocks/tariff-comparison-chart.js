@@ -12,14 +12,14 @@ import {
 } from '@progress/kendo-react-charts';
 import { useEffect, useState } from 'react';
 
-// Import the tariff history from the API service
+
 const ELECTRICITY_TARIFF_HISTORY = [
   { startDate: new Date(2022, 9, 4), rate: 0.24 },
   { startDate: new Date(2023, 0, 1), rate: 0.26 },
   { startDate: new Date(2023, 6, 1), rate: 0.28 },
   { startDate: new Date(2024, 0, 1), rate: 0.30 },
   { startDate: new Date(2024, 6, 1), rate: 0.28 },
-  { startDate: new Date(2025, 3, 1), rate: 0.32 } // Новый тариф на апрель 2025
+  { startDate: new Date(2025, 3, 1), rate: 0.28 } 
 ];
 
 export default function TariffComparisonChart(props) {
@@ -34,25 +34,23 @@ export default function TariffComparisonChart(props) {
       try {
         setIsLoading(true);
         
-        // Format the tariff data for the chart
         const formattedData = ELECTRICITY_TARIFF_HISTORY.map(item => ({
           date: item.startDate,
           rate: item.rate
         }));
         
-        // Sort by date
+      
         formattedData.sort((a, b) => a.date - b.date);
         
-        // Extract rates and format dates for categories
         const rates = formattedData.map(item => item.rate);
         const dateCategories = formattedData.map(item => {
           const date = new Date(item.date);
-          // Используем английскую локаль для названий месяцев
+        
           return `${date.toLocaleString('en-US', { month: 'short' })} ${date.getFullYear()}`;
         });
         
         setTariffData(rates);
-        setRawTariffData(formattedData); // Сохраняем полные данные для tooltip
+        setRawTariffData(formattedData); 
         setCategories(dateCategories);
       } catch (error) {
         console.error('Error preparing tariff data:', error);
@@ -65,11 +63,7 @@ export default function TariffComparisonChart(props) {
   }, []);
 
   const tooltipRender = ({ point }) => {
-    // Получаем индекс точки данных
-    const index = point.index;
-    
-    // Проверяем, что индекс валидный
-    if (index === undefined || index < 0 || index >= categories.length) {
+    if (!point) {
       return (
         <div>
           <p><strong>Tariff information not available</strong></p>
@@ -77,14 +71,10 @@ export default function TariffComparisonChart(props) {
       );
     }
     
-    // Получаем категорию (месяц и год) из массива категорий
-    const category = categories[index];
+    const category = point.category;
+    const value = point.value;
     
-    // Получаем значение тарифа напрямую из массива тарифов
-    const rate = tariffData[index];
-    
-    // Проверяем, что rate существует
-    if (rate === undefined || rate === null) {
+    if (value === undefined || value === null) {
       return (
         <div>
           <p><strong>{category}</strong></p>
@@ -96,7 +86,7 @@ export default function TariffComparisonChart(props) {
     return (
       <div>
         <p><strong>{category}</strong></p>
-        <p>Tariff Rate: £{rate.toFixed(2)}/kWh</p>
+        <p>Tariff Rate: £{value.toFixed(2)}/kWh</p>
       </div>
     );
   };

@@ -65,6 +65,37 @@ export default function HourlyConsumptionHeatmap(props) {
     fetchData();
   }, []);
 
+  const tooltipRender = ({ point }) => {
+    if (!point) {
+      return (
+        <div>
+          <p><strong>Consumption information not available</strong></p>
+        </div>
+      );
+    }
+    
+    const dataItem = point.dataItem;
+    
+    if (!dataItem) {
+      return (
+        <div>
+          <p><strong>Consumption information not available</strong></p>
+        </div>
+      );
+    }
+    
+    const hour = dataItem.hour;
+    const day = dataItem.day;
+    const value = dataItem.value;
+    
+    return (
+      <div>
+        <p><strong>{day}, {hour}:00</strong></p>
+        <p>Consumption: {value} kWh</p>
+      </div>
+    );
+  };
+
   if (isLoading) {
     return <div>Loading data...</div>;
   }
@@ -107,7 +138,7 @@ export default function HourlyConsumptionHeatmap(props) {
         />
       </ChartYAxis>
       <ChartLegend position="bottom" />
-      <ChartTooltip format="{3}: {2} kWh" />
+      <ChartTooltip render={tooltipRender} />
     </Chart>
   );
 }

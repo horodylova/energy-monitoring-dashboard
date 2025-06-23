@@ -57,8 +57,7 @@ export default function Home() {
   const [expanded, setExpanded] = React.useState(true);
   const [items, setItems] = React.useState(drawerItems);
   const [refreshChart, setRefreshChart] = React.useState(true);
-  
-  // Состояние для DailyStats
+
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [electricityData, setElectricityData] = React.useState(null);
   const [gasData, setGasData] = React.useState(null);

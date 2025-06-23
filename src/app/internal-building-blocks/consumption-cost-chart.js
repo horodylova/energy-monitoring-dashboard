@@ -21,7 +21,7 @@ export default function ConsumptionCostChart(props) {
   const [costData, setCostData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [monthlyData, setMonthlyData] = useState([]);
-  const tariffRate = 0.32;
+  const tariffRate = 0.28;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,30 +52,52 @@ export default function ConsumptionCostChart(props) {
   }, []);
 
   const tooltipRender = ({ point }) => {
-    const monthIndex = point.dataIndex;
+    if (!point) {
+      return (
+        <div>
+          <p><strong>Data not available</strong></p>
+        </div>
+      );
+    }
     
-    // Проверяем, что индекс валидный и данные существуют
+    const seriesName = point.series.name;
+    const monthIndex = point.categoryIndex;
+    
     if (monthIndex === undefined || 
         monthIndex < 0 || 
         !costChartCategories || 
         monthIndex >= costChartCategories.length) {
       return (
         <div>
-          <p><strong>Tariff: £{tariffRate.toFixed(2)}/kWh</strong></p>
+          <p><strong>Data not available</strong></p>
         </div>
       );
     }
     
     const month = costChartCategories[monthIndex].toLocaleString('en-US', { month: 'long' });
-    const consumption = consumptionData[monthIndex] || 0;
-    const cost = costData[monthIndex] || 0;
+    const value = point.value;
+    
+    if (seriesName === "Consumption") {
+      return (
+        <div>
+          <p><strong>{month} 2025</strong></p>
+          <p>Consumption: {value.toFixed(2)} kWh</p>
+        </div>
+      );
+    } else if (seriesName === "Cost") {
+      return (
+        <div>
+          <p><strong>{month} 2025</strong></p>
+          <p>Cost: £{value.toFixed(2)}</p>
+          <p>Tariff Rate: £{tariffRate.toFixed(2)}/kWh</p>
+        </div>
+      );
+    }
     
     return (
       <div>
         <p><strong>{month} 2025</strong></p>
-        <p>Consumption: {consumption.toFixed(2)} kWh</p>
-        <p>Cost: £{cost.toFixed(2)}</p>
-        <p>Tariff Rate: £{tariffRate.toFixed(2)}/kWh</p>
+        <p>{seriesName}: {value}</p>
       </div>
     );
   };

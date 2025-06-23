@@ -64,8 +64,6 @@ async function getAccountProperties() {
 
 async function getElectricityConsumption(mpan, serial, periodFrom, periodTo, groupBy) {
     try {
-        console.log(`Fetching electricity consumption from ${periodFrom} to ${periodTo} grouped by ${groupBy}`);
-        console.log(`MPAN: ${mpan}, Serial: ${serial}`);
         
         const response = await axios.get(`${OCTOPUS_API_BASE_URL}/v1/electricity-meter-points/${mpan}/meters/${serial}/consumption/`, {
             params: {
@@ -78,15 +76,6 @@ async function getElectricityConsumption(mpan, serial, periodFrom, periodTo, gro
                 password: ''
             }
         });
-        
-        console.log('Electricity consumption data received:');
-        console.log(`Number of results: ${response.data.results.length}`);
-        if (response.data.results.length > 0) {
-            console.log(`First result: ${JSON.stringify(response.data.results[0])}`);
-            console.log(`Last result: ${JSON.stringify(response.data.results[response.data.results.length - 1])}`);
-        } else {
-            console.log('No consumption data found for the specified period');
-        }
         
         return response.data;
     } catch (error) {
