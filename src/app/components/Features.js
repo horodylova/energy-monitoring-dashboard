@@ -2,24 +2,34 @@ import React, { useRef } from 'react';
 import { Button } from '@progress/kendo-react-buttons';
 import { exportIcon } from '@progress/kendo-svg-icons';
 import HourlyConsumptionPieChart from '../internal-building-blocks/HourlyConsumptionPieChart';
-import { exportToPDF } from '../utils/pdfExport';
+import { PDFExport } from '@progress/kendo-react-pdf';
+
 
 export default function Features({ onRefresh }) {
-  const chartContainerRef = useRef(null);
-  
+   const pdfExportComponent = useRef(null);
+
   const handleExport = () => {
-    const title = 'Hourly Energy Consumption';
-    
-    exportToPDF(chartContainerRef, 'hourly-energy-consumption.pdf', {
-      title: title,
-      background: '#333',
-      color: '#fff'
-    });
+    if (pdfExportComponent.current) {
+      pdfExportComponent.current.save();
+    }
   };
   
   return (
     <div>
       <h2 className="k-h5 !k-mb-5 k-color-subtle">Features</h2>
+       <PDFExport
+        ref={pdfExportComponent}
+        paperSize="A4"
+        margin="1cm"
+        fileName="hourly-energy-consumption.pdf"
+        author="Energy Monitoring Dashboard"
+        creator="Energy Monitoring Dashboard"
+        forcePageBreak=".page-break"
+        keepTogether=".keep-together"
+        avoidLinks={true}
+        scale={1}
+        landscape={false}  
+      >
       <div
         className="k-d-flex k-flex-col k-border k-border-solid k-border-border k-bg-surface-alt k-rounded-lg"
         style={{ background: 'var(--card-gradient)' }}
@@ -29,7 +39,7 @@ export default function Features({ onRefresh }) {
             Hourly Energy Consumption
           </div>
         </div>
-        <div className="k-flex-1 k-d-flex k-justify-content-center k-p-4" ref={chartContainerRef}>
+        <div className="k-flex-1 k-d-flex k-justify-content-center k-p-4" >
           <HourlyConsumptionPieChart onRefresh={onRefresh} />
         </div>
         <div className="k-p-2">
@@ -43,6 +53,7 @@ export default function Features({ onRefresh }) {
           </Button>
         </div>
       </div>
+      </PDFExport>
     </div>
   );
 }

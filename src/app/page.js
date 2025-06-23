@@ -24,9 +24,10 @@ import CostConsumption from './components/CostConsumption'
 import Detection from './components/Detection';
 import Features from './components/Features';
 
- 
+import Image from 'next/image';
 import logo from '@/app/assets/logo.svg';
-import compactLogo from '@/app/assets/compact-logo.svg';
+
+
 
 import {
 
@@ -105,11 +106,10 @@ export default function Home() {
           <AppBarSection className="k-flex-basis-0 k-flex-grow k-gap-4">
             <Button svgIcon={menuIcon} fillMode="clear" themeColor="light" title='Toggle Drawer' onClick={handleDrawerState} />
             <a href="#" className="k-d-none k-d-md-flex">
-              <img src={logo} alt="Logo" />
+              
+<Image src={logo} alt="Logo" width={200} height={50} />
             </a>
-            <a href="#" className="k-d-flex k-d-md-none">
-              <img src={compactLogo} alt="Compact Logo" />
-            </a>
+          
           </AppBarSection>
 
           <AppBarSection
@@ -138,7 +138,7 @@ export default function Home() {
             </h1>
 
             <div className="k-display-flex k-flex-col k-gap-10">
-              {/* Daily Stats - передаем состояние через props */}
+              
               <div id="daily-stats">
                 <DailyStats 
                   selectedDate={selectedDate}
@@ -165,7 +165,7 @@ export default function Home() {
                     <div id="tariffs-expenses">
                       <TariffsAndExpenses onRefresh={handleChartRefresh} />
                     </div>
-                  <div>
+                  <div id='cost/consumption'>
                       <CostConsumption onRefresh={handleChartRefresh} />
                   </div>
                   </div>

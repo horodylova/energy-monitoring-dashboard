@@ -16,11 +16,7 @@ import DrawerItem31 from '@/app/assets/drawer-item-3-1.png';
 import DrawerItem32 from '@/app/assets/drawer-item-3-2.png';
 import DrawerItem33 from '@/app/assets/drawer-item-3-3.png';
 
-export const adminItems = [
-    { text: 'Settings', icon: gearsIcon },
-    { text: 'Support', icon: commentIcon },
-    { text: 'Log out', icon: logoutIcon },
-];
+
 
 export const chipData = [
   {
@@ -288,82 +284,34 @@ export const drawerItems = [{
     image: DrawerItem1,
     selected: true,
     id: 0,
+    href: '#dashboard'
 }, {
-    text: 'Performance',
+    text: 'Daily Stats',
     image: DrawerItem2,
-    dataExpanded: false,
     id: 1,
+    href: '#daily-stats'
 }, {
-    text: 'Accuracy',
-    image: DrawerItem21,
-    id: 11,
-    parentId: 1,
-    level: 1,
-}, {
-    text: 'Precision',
-    image: DrawerItem22,
-    id: 12,
-    parentId: 1,
-    level: 1,
-}, {
-    text: 'Loss Metrics',
-    image: DrawerItem23,
-    id: 13,
-    parentId: 1,
-    level: 1,
-}, {
-    text: 'Data Quality',
-    image: DrawerItem24,
-    id: 14,
-    parentId: 1,
-    level: 1,
-}, {
-    text: 'Data Sources',
+    text: 'Utilisation',
     image: DrawerItem3,
     id: 2,
-    dataExpanded: false,
+    href: '#utilisation'
 }, {
-    text: 'Data Source Types',
-    image: DrawerItem31,
-    id: 21,
-    parentId: 2,
-    level: 1,
-}, {
-    text: 'Permissions',
-    image: DrawerItem32,
-    id: 22,
-    parentId: 2,
-    level: 1,
-}, {
-    text: 'Security',
-    image: DrawerItem33,
-    id: 23,
-    parentId: 2,
-    level: 1,
-}, {
-    text: 'Real-Time Monitoring',
+    text: 'Tariffs and Expenses',
     image: DrawerItem4,
     id: 3,
-}, {
-    text: 'Model Management',
+    href: '#tariffs-expenses'
+}, 
+{
+    text: 'Cost/Consumption',
     image: DrawerItem5,
     id: 4,
-}, {
-    text: 'Users',
+    href: '#cost/consumption'
+},
+{
+    text: 'Energy Monitoring',
     image: DrawerItem6,
     id: 5,
+    href: '#energy-monitoring'
 }, {
-    text: 'Reports',
-    image: DrawerItem7,
-    id: 6,
-}, {
-    text: 'Settings',
-    image: DrawerItem8,
-    id: 7,
-},{
     separator: true
-}, {
-    text: 'Help',
-    image: DrawerItem9,
-    id: 8,
 }];

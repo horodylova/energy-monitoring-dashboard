@@ -153,7 +153,6 @@ export default function RateLimitsGrid() {
     setData(newItems);
   }, []);
 
-  // modify the data in the store, db etc
   const remove = (dataItem) => {
     const newData = [...deleteItem(dataItem)];
     setData(newData);
@@ -165,7 +164,6 @@ export default function RateLimitsGrid() {
     setEdit((edit) => ({ ...edit, [dataItem.name]: false }));
   };
 
-  // Local state operations
   const discard = () => {
     const newData = [...data];
     newData.splice(0, 1);
