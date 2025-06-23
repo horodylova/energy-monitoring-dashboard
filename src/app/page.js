@@ -27,7 +27,7 @@ import { chipData, drawerItems, adminItems } from './data';
 import RequestsChart from './internal-building-blocks/requests-chart';
 import DailyStats from './components/DailyStats';
 import Usage from './components/Usage';
-import Cost from './components/Cost';
+import TariffsAndExpenses from './components/TariffsAndExpenses';
 import Detection from './components/Detection';
 import Features from './components/Features';
 import RateLimits from './components/RateLimits';
@@ -238,7 +238,7 @@ export default function Home() {
               {/* Cost */}
               <div className="k-d-grid k-grid-cols-3 k-gap-10 k-gap-xl-4">
                 <div className="k-col-span-3 k-col-span-xl-2 k-d-flex k-flex-col k-gap-10">
-                  <Cost onRefresh={handleChartRefresh} />
+                  <TariffsAndExpenses onRefresh={handleChartRefresh} />
                   <div className="k-flex-1 k-d-flex k-flex-col">
                     <h2 className="k-h5 !k-mb-5 k-color-subtle">Requests</h2>
                     <div

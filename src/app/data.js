@@ -24,29 +24,29 @@ export const adminItems = [
 
 export const chipData = [
   {
-    text: 'Deep Learning Models',
+    text: 'Daily Usage',
     value: '1',
     svgIcon: checkIcon,
   },
   {
-    text: 'Speech Recognition Models',
+    text: 'Weekly Summary',
     value: '2',
   },
   {
-    text: 'Reinforcement Learning Models',
+    text: 'Monthly Report',
     value: '3',
   },
   {
-    text: 'Image Processing Models',
+    text: 'Peak Hours',
     value: '4',
   },
   {
-    text: 'Natural Language Processing (NLP) Models',
+    text: 'Off-Peak Usage',
     value: '5',
     svgIcon: checkIcon,
   },
   {
-    text: 'Generative Models',
+    text: 'Cost Analysis',
     value: '6',
     svgIcon: checkIcon,
   },
@@ -185,18 +185,18 @@ export const generativeModelsData = [
 ];
 
 export const costChartCategories = [
-  new Date(2023, 0, 1),
-  new Date(2023, 1, 1),
-  new Date(2023, 2, 1),
-  new Date(2023, 3, 1),
-  new Date(2023, 4, 1),
-  new Date(2023, 5, 1),
-  new Date(2023, 6, 1),
-  new Date(2023, 7, 1),
-  new Date(2023, 8, 1),
-  new Date(2023, 9, 1),
-  new Date(2023, 10, 1),
-  new Date(2023, 11, 1),
+  new Date(2025, 0, 1),
+  new Date(2025, 1, 1),
+  new Date(2025, 2, 1),
+  new Date(2025, 3, 1),
+  new Date(2025, 4, 1),
+  new Date(2025, 5, 1),
+  new Date(2025, 6, 1),
+  new Date(2025, 7, 1),
+  new Date(2025, 8, 1),
+  new Date(2025, 9, 1),
+  new Date(2025, 10, 1),
+  new Date(2025, 11, 1),
 ];
 
 export const productionVolumeData = [
