@@ -13,12 +13,12 @@ import { SvgIcon } from '@progress/kendo-react-common';
 import { xIcon, chevronUpIcon, chevronDownIcon } from '@progress/kendo-svg-icons';
 
 export const CustomDrawerItem = (props) => {
-  const { visible, dataExpanded, parentId, id, className, level, ...others } = props;
+  const { visible, dataExpanded, parentId, id, className, level, href, ...others } = props;
   const arrowDir = dataExpanded ? chevronUpIcon : chevronDownIcon;
 
   if (!props.separator) {
-    return visible === false ? null : (
-      <DrawerItem id={props.id} className={`${className} k-font-size-md k-align-items-center`} {...others} >
+    const itemContent = (
+      <>
         {props.image && (
           <div style={{ width: '16px', height: '16px', position: 'relative', marginRight: '8px' }}>
             <Image 
@@ -37,6 +37,18 @@ export const CustomDrawerItem = (props) => {
               marginLeft: 'auto',
             }}
           />
+        )}
+      </>
+    );
+
+    return visible === false ? null : (
+      <DrawerItem id={props.id} className={`${className} k-font-size-md k-align-items-center`} {...others}>
+        {href ? (
+          <a href={href} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', width: '100%' }}>
+            {itemContent}
+          </a>
+        ) : (
+          itemContent
         )}
       </DrawerItem>
     )

@@ -97,9 +97,7 @@ export default function Usage({ onRefresh }) {
           </div>
         </div>
         <div className="k-p-2 k-d-flex k-justify-content-between">
-          <div className="k-d-flex k-gap-2">
-           
-          </div>
+      
           <Button svgIcon={exportIcon} fillMode="flat" title="export" onClick={handleExport}>
             Export
           </Button>

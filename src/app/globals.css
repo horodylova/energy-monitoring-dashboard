@@ -26,7 +26,7 @@ hr {
 }
 
 :root {
-    /* Color System Swatches */
+  
 
     /* Misc */
     --kendo-color-app-surface: #151828;
@@ -231,24 +231,28 @@ hr {
     --kendo-border-radius-xxxl: 48px;
     --kendo-border-radius-full: 9999px;
 
-    /* Card Gradient */
     --card-gradient: radial-gradient(50% 50% at 50% 50%, color-mix(in srgb, var(--kendo-color-on-app-surface) 10%, transparent) 0%, color-mix(in srgb, var(--kendo-color-surface-alt) 10%, transparent) 100%), var(--kendo-color-surface-alt);
 }
 
-/* Применяем темную тему к body и html */
 html, body {
   background-color: var(--kendo-color-app-surface);
   color: var(--kendo-color-on-app-surface);
 }
 
-/* Стили для компонентов Kendo UI */
 .k-body {
   background-color: var(--kendo-color-app-surface) !important;
   color: var(--kendo-color-on-app-surface) !important;
 }
 
-/* Добавляем класс для темной темы */
 .k-theme-default {
   background-color: var(--kendo-color-app-surface);
   color: var(--kendo-color-on-app-surface);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 80px;
 }

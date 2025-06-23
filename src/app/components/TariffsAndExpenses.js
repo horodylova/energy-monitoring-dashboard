@@ -7,7 +7,7 @@ import {
 import { exportIcon } from '@progress/kendo-svg-icons';
 import TariffComparisonChart from '../internal-building-blocks/tariff-comparison-chart';
 import HourlyConsumptionHeatmap from '../internal-building-blocks/hourly-consumption-heatmap';
-import ConsumptionCostChart from '../internal-building-blocks/consumption-cost-chart';
+
 import { chipData } from '../data';
 import { CustomChip } from '../custom-components/CustomComponents';
 import { exportToPDF } from '../utils/pdfExport';
@@ -22,8 +22,7 @@ export default function TariffsAndExpenses({ onRefresh }) {
         return <TariffComparisonChart onRefresh={onRefresh} />;
       case 'hourly':
         return <HourlyConsumptionHeatmap onRefresh={onRefresh} />;
-      case 'cost':
-        return <ConsumptionCostChart onRefresh={onRefresh} />;
+     
       default:
         return <TariffComparisonChart onRefresh={onRefresh} />;
     }
@@ -66,13 +65,7 @@ export default function TariffsAndExpenses({ onRefresh }) {
               >
                 Hourly Consumption
               </Button>
-              <Button 
-                title="cost" 
-                className={selectedView === 'cost' ? 'k-selected' : ''}
-                onClick={() => setSelectedView('cost')}
-              >
-                Cost/Consumption
-              </Button>
+             
             </ButtonGroup>
           </div>
           <div className="k-flex-1 k-p-4 k-d-flex k-flex-col k-gap-4">

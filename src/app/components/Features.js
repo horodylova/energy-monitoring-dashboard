@@ -1,10 +1,22 @@
-import React from 'react';
-import { DropDownList } from '@progress/kendo-react-dropdowns';
+import React, { useRef } from 'react';
 import { Button } from '@progress/kendo-react-buttons';
 import { exportIcon } from '@progress/kendo-svg-icons';
-import FeaturesChart from '../internal-building-blocks/features-chart';
+import HourlyConsumptionPieChart from '../internal-building-blocks/HourlyConsumptionPieChart';
+import { exportToPDF } from '../utils/pdfExport';
 
 export default function Features({ onRefresh }) {
+  const chartContainerRef = useRef(null);
+  
+  const handleExport = () => {
+    const title = 'Hourly Energy Consumption';
+    
+    exportToPDF(chartContainerRef, 'hourly-energy-consumption.pdf', {
+      title: title,
+      background: '#333',
+      color: '#fff'
+    });
+  };
+  
   return (
     <div>
       <h2 className="k-h5 !k-mb-5 k-color-subtle">Features</h2>
@@ -14,31 +26,18 @@ export default function Features({ onRefresh }) {
       >
         <div className="k-d-flex k-justify-content-between k-flex-wrap k-gap-2 k-p-4">
           <div className="k-font-size-xl k-font-weight-bold k-color-on-app-surface">
-            Top Features Used
+            Hourly Energy Consumption
           </div>
-          <DropDownList
-            data={[
-              'Text generation',
-              'Image generation',
-              'Music and audio creation',
-            ]}
-            fillMode={'flat'}
-            value="Generative AI"
-            style={{
-              width: '225px',
-            }}
-            ariaLabel="Select Top Features Used"
-          />
         </div>
-        <div className="k-flex-1 k-d-flex k-justify-content-center k-p-4">
-          {/* chart */}
-          <FeaturesChart onRefresh={onRefresh} />
+        <div className="k-flex-1 k-d-flex k-justify-content-center k-p-4" ref={chartContainerRef}>
+          <HourlyConsumptionPieChart onRefresh={onRefresh} />
         </div>
         <div className="k-p-2">
           <Button
             svgIcon={exportIcon}
             fillMode="flat"
-            title="btn"
+            title="export"
+            onClick={handleExport}
           >
             Export
           </Button>
