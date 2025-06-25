@@ -4,4 +4,4 @@
  
  | Data provided by Octopus Energy API</a> | 
  
- | Built with KendoReact UI |||
+ Built with KendoReact UI
