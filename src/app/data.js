@@ -279,6 +279,29 @@ export const features = [
   },
 ];
 
+export const mockHourlyConsumptionData = [
+  {
+    kind: 'Morning',
+    share: 45.2,
+    color: 'rgb(255, 165, 0)',
+  },
+  {
+    kind: 'Afternoon',
+    share: 62.8,
+    color: 'rgb(255, 215, 0)',
+  },
+  {
+    kind: 'Evening',
+    share: 78.5,
+    color: 'rgb(70, 130, 180)',
+  },
+  {
+    kind: 'Night',
+    share: 28.3,
+    color: 'rgb(25, 25, 112)',
+  },
+];
+
 export const drawerItems = [{
     text: 'Dashboard',
     image: DrawerItem1,

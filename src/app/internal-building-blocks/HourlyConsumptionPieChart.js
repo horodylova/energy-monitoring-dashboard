@@ -8,6 +8,7 @@ import {
   ChartTooltip
 } from '@progress/kendo-react-charts';
 import { getElectricityConsumption } from '../services/octopus-api';
+import { mockHourlyConsumptionData } from '../data';
 import { Loader } from '@progress/kendo-react-indicators';
 
 export default function HourlyConsumptionPieChart(props) {
@@ -36,7 +37,9 @@ export default function HourlyConsumptionPieChart(props) {
         const consumptionData = response.results;
         
         if (!consumptionData || consumptionData.length === 0) {
-          throw new Error('No consumption data available');
+          console.warn('No consumption data available for the selected period, using mock data');
+          setChartData(mockHourlyConsumptionData);
+          return;
         }
         
         const hourlyConsumption = {};
