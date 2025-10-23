@@ -63,6 +63,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "sass": "^1.89.2"
   }
 }
