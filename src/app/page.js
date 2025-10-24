@@ -4,54 +4,37 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 import React from 'react';
+import dynamic from 'next/dynamic';
 
+// Динамически импортируем все Kendo UI компоненты без SSR
+const Button = dynamic(() => import('@progress/kendo-react-buttons').then(mod => ({ default: mod.Button })), { ssr: false });
+const ButtonGroup = dynamic(() => import('@progress/kendo-react-buttons').then(mod => ({ default: mod.ButtonGroup })), { ssr: false });
+const ChipList = dynamic(() => import('@progress/kendo-react-buttons').then(mod => ({ default: mod.ChipList })), { ssr: false });
 
-import {
- Button,
- ButtonGroup,
- ChipList,
-} from '@progress/kendo-react-buttons';
-import {
- AppBar,
- AppBarSection,
- Drawer,
- DrawerContent,
-} from '@progress/kendo-react-layout';
+const AppBar = dynamic(() => import('@progress/kendo-react-layout').then(mod => ({ default: mod.AppBar })), { ssr: false });
+const AppBarSection = dynamic(() => import('@progress/kendo-react-layout').then(mod => ({ default: mod.AppBarSection })), { ssr: false });
+const Drawer = dynamic(() => import('@progress/kendo-react-layout').then(mod => ({ default: mod.Drawer })), { ssr: false });
+const DrawerContent = dynamic(() => import('@progress/kendo-react-layout').then(mod => ({ default: mod.DrawerContent })), { ssr: false });
 
+// Динамически импортируем компоненты
+const DailyStats = dynamic(() => import('./components/DailyStats'), { ssr: false });
+const Usage = dynamic(() => import('./components/Utilisation'), { ssr: false });
+const TariffsAndExpenses = dynamic(() => import('./components/TariffsAndExpenses'), { ssr: false });
+const CostConsumption = dynamic(() => import('./components/CostConsumption'), { ssr: false });
+const Detection = dynamic(() => import('./components/Detection'), { ssr: false });
+const Features = dynamic(() => import('./components/Features'), { ssr: false });
+
+const CustomDrawerItem = dynamic(() => import('./custom-components/CustomComponents').then(mod => ({ default: mod.CustomDrawerItem })), { ssr: false });
+const CustomChip = dynamic(() => import('./custom-components/CustomComponents').then(mod => ({ default: mod.CustomChip })), { ssr: false });
 
 import { chipData, drawerItems } from './data';
-
-
-import DailyStats from './components/DailyStats';
-import Usage from './components/Utilisation';
-import TariffsAndExpenses from './components/TariffsAndExpenses';
-import CostConsumption from './components/CostConsumption'
-import Detection from './components/Detection';
-import Features from './components/Features';
-
 
 import Image from 'next/image';
 import logo from '@/app/assets/logo.svg';
 
-
-
-
-
-
-import {
-
-
- menuIcon,
-
-
- exportIcon
-} from '@progress/kendo-svg-icons';
-
-
-import {
- CustomDrawerItem,
- CustomChip
-} from './custom-components/CustomComponents';
+// Динамически импортируем SVG иконки
+const menuIcon = dynamic(() => import('@progress/kendo-svg-icons').then(mod => ({ default: mod.menuIcon })), { ssr: false });
+const exportIcon = dynamic(() => import('@progress/kendo-svg-icons').then(mod => ({ default: mod.exportIcon })), { ssr: false });
 
 
 export default function Home() {
