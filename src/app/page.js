@@ -120,8 +120,7 @@ export default function Home() {
          <AppBarSection className="k-flex-basis-0 k-flex-grow k-gap-4">
            <Button svgIcon={menuIcon} fillMode="clear" themeColor="light" title='Toggle Drawer' onClick={handleDrawerState} />
            <a href="#" className="k-d-none k-d-md-flex">
-            
-<Image src={logo} alt="Logo" width={200} height={50} />
+            <LogoSvg width={200} height={50} alt="Logo" />
            </a>
         
          </AppBarSection>

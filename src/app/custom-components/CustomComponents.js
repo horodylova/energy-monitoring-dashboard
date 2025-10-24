@@ -19,7 +19,7 @@ export const CustomDrawerItem = (props) => {
   if (!props.separator) {
     const itemContent = (
       <>
-        {props.image && (
+        {props.image && props.image !== "" && (
           <div style={{ width: '16px', height: '16px', position: 'relative', marginRight: '8px' }}>
             <Image 
               src={props.image} 
