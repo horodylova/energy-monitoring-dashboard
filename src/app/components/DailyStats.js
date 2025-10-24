@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+
 import {
   DatePicker,
 } from '@progress/kendo-react-dateinputs';
